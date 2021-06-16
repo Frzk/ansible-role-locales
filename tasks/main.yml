@@ -1,0 +1,41 @@
+---
+- name: Include OS specific configuration
+  ansible.builtin.include_vars: "{{ lookup('first_found', findme) }}"
+  vars:
+    findme:
+      paths:
+        - "vars"
+      files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_distribution }}.yml"
+        - "{{ ansible_os_family }}.yml"
+      skip: yes
+
+- name: Install locales
+  ansible.builtin.package:
+    name: "{{ locales_package_name }}"
+    state: present
+  when: (locales_package_name is defined) and (locales_package_name | length > 0)
+
+- name: Generate locale.gen configuration file
+  ansible.builtin.template:
+    src: "locale.gen.j2"
+    dest: "/etc/locale.gen"
+    owner: "root"
+    group: "root"
+    mode: 0644
+
+- name: Generate locales
+  community.general.locale_gen:
+    name: "{{ item.locale }}"
+    state: present
+  loop: "{{ locales_locales }}"
+
+- name: Generate locale.conf configuration file
+  ansible.builtin.template:
+    src: "locale.conf.j2"
+    dest: "{{ locales_configuration_file }}"
+    owner: "root"
+    group: "root"
+    mode: 0644
+...

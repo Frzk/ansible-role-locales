@@ -1,0 +1,4 @@
+---
+locales_package_name: "locales"
+locales_configuration_file: "/etc/default/locale"
+...

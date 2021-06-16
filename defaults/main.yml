@@ -1,0 +1,25 @@
+---
+locales_locales:
+  - locale: "en_US.UTF-8"
+    charset: "UTF-8"
+
+locales_lang: "{{ locales_locales[0].locale }}"
+locales_language: "{{ locales_lang }}"
+locales_lc:
+  address: "{{ locales_lang }}"
+  all: "{{ locales_lang }}"
+  collate: "{{ locales_lang }}"
+  ctype: "{{ locales_lang }}"
+  identification: "{{ locales_lang }}"
+  measurement: "{{ locales_lang }}"
+  messages: "{{ locales_lang }}"
+  monetary: "{{ locales_lang }}"
+  name: "{{ locales_lang }}"
+  numeric: "{{ locales_lang }}"
+  paper: "{{ locales_lang }}"
+  response: "{{ locales_lang }}"
+  telephone: "{{ locales_lang }}"
+  time: "{{ locales_lang }}"
+
+locales_configuration_file: "/etc/locale.conf"
+...

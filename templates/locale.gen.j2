@@ -1,0 +1,5 @@
+{{ ansible_managed | comment }}
+
+{% for locale in locales_locales %}
+{{ locale.locale }} {{ locale.charset }}
+{% endfor %}
