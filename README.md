@@ -1,6 +1,6 @@
 # Ansible Role: `locales`
 
-[![GitHub Super-Linter](https://github.com/Frzk/ansible-role-locales/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![Code Linter](https://github.com/Frzk/ansible-role-locales/actions/workflows/linter.yml/badge.svg?branch=main)](https://github.com/Frzk/ansible-role-locales/actions/workflows/linter.yml)
 
 This Ansible role allows you to install and configure the *locales* of the targeted host.
 
