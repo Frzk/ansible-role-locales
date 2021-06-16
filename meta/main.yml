@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: François KUBLER
+  description: Install and generate locales.
+  company: KBLR
+  license: Apache-2.0
+  issue_tracker_url: https://github.com/Frzk/ansible-role-locales/issues
+  min_ansible_version: 4.0.0.0
+  platforms:
+    - name: Archlinux
+      versions:
+        - all
+  galaxy_tags:
+    - system
+    - locales
+    - i18n
+...
