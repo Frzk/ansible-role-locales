@@ -1,6 +1,7 @@
 # Ansible Role: `locales`
 
 [![Code Linter](https://github.com/Frzk/ansible-role-locales/actions/workflows/linter.yml/badge.svg?branch=main)](https://github.com/Frzk/ansible-role-locales/actions/workflows/linter.yml)
+[![Ansible Role](https://img.shields.io/ansible/role/d/55359?color=2997FF&label=Ansible%20Galaxy%20downloads&logo=ansible)](https://galaxy.ansible.com/Frzk/locales)
 
 This Ansible role allows you to install and configure the *locales* of the targeted host.
 
