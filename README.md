@@ -5,9 +5,9 @@
 This Ansible role allows you to install and configure the *locales* of the targeted host.
 
 More precisely, it will:
-  - Generate `/etc.locale.conf` or `/etc/default/locale` (depending on the host OS)
-  - Generate `/etc/locale.gen`
-  - Generate the locales depending on the previous file.
+- Generate `/etc.locale.conf` or `/etc/default/locale` (depending on the host OS)
+- Generate `/etc/locale.gen`
+- Generate the locales depending on the previous file.
 
 Some distributions (such as Arch Linux) don't need any additional package. In this case, just leave `locales_package_name` empty (or remove it).
 
@@ -34,7 +34,7 @@ Variables and properties in bold are mandatory. Others are optional.
 
 | Property name   | Description     | Default value |
 | --------------- | --------------- |-------------- |
-| *`locale`*      | Locale name.    | `en_US.UTF-8` |
+| **`locale`**    | Locale name.    | `en_US.UTF-8` |
 | `charset`       | Locale charset. | `UTF-8`       |
 
 ### locales_lc properties
