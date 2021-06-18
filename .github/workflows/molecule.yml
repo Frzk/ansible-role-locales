@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         docker_image:
-          - archlinux:latest
+          - "archlinux:latest"
           # - debian10
           # - debian9
           # - ubuntu1804

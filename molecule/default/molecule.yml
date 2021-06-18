@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: "{{ WRKFLW_DISTRIB }}"
+    image: "${WRKFLW_DISTRIB:-debian:latest}"
     command: /sbin/init
     tmpfs:
       - /run

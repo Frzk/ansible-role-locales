@@ -22,7 +22,7 @@ Variables and properties in bold are mandatory. Others are optional.
 | ---------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------ |
 | `locales_package_name`       | Name of the package to install.                      |                                                                                |
 | `locales_configuration_file` | Path to the locale configuration file of the system. | `/etc/locale.conf`                                                             |
-| `locales_locales`            | A list of [locales](#locale-properties).             | See [locales properties](#locale-properties) default values.                   |
+| `locales_locales`            | A list of [locales](#locale-properties).             | See [locale properties](#locale-properties) default values.                    |
 | `locales_lang`               | Value to use as the `LANG` environment variable.     | `locale` value of the first [locale](#locale-properties) in `locales_locales`. |
 | `locales_language`           | Value to use as the `LANGUAGE` environment variable. | `locales_lang`                                                                 |
 | `locales_lc`                 | A [locales_lc](#locales_lc-properties) dict.         | `{}`                                                                           |
