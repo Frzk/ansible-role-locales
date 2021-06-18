@@ -2,8 +2,9 @@
 galaxy_info:
   role_name: locales
   author: François KUBLER
-  description: Install and generate locales.
+  namespace: frzk
   company: KBLR
+  description: Install and generate locales.
   license: Apache-2.0
   issue_tracker_url: https://github.com/Frzk/ansible-role-locales/issues
   min_ansible_version: 4.0.0
