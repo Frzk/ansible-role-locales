@@ -1,0 +1,56 @@
+---
+name: Molecule
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - master
+      - getting-rid-of-docker
+  schedule:
+    - cron: "15 4 * * 1"
+
+defaults:
+  run:
+    working-directory: frzk.locales
+
+jobs:
+  molecule:
+    name: Testing with Molecule
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        docker_image:
+          - archlinux:latest
+          # - debian10
+          # - debian9
+          # - ubuntu1804
+          # - ubuntu1604
+    steps:
+      - name: 🛎 Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          path: 'frzk.locales'
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: 🔧 Install dependencies
+        run: |
+          pip3 install --upgrade pip
+          pip3 install --upgrade wheel
+          pip3 install ansible molecule[docker] docker
+
+      - name: 🧪 Run molecule
+        run: |
+          molecule --debug test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
+          WRKFLW_DISTRIB: ${{ matrix.docker_image }}
+...
