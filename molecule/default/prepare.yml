@@ -2,6 +2,15 @@
 - name: Prepare
   hosts: all
   tasks:
+    - name: Packages
+      block:
+        - name: Install packages
+          ansible.builtin.package:
+            name: "{{ item }}"
+            state: present
+          loop:
+            - "sudo"
+
     - name: Ansible User
       block:
         - name: Create ansible user
@@ -28,40 +37,35 @@
             create: yes
             owner: root
             group: root
-            mode: 0644
+            mode: 0440
             state: present
 
         - name: Allow user ansible to sudo (2)
           ansible.builtin.lineinfile:
-            path: /etc/sudoers
+            path: "/etc/sudoers"
             line: "@includedir /etc/sudoers.d"
             insertafter: EOF
-            state: present
-
-    - name: Packages
-      block:
-        - name: Install packages
-          ansible.builtin.package:
-            name: "{{ item }}"
-            state: present
-          loop:
-            - "sudo"
-
-    - name: Create Ansible hosts file
-      block:
-        - name: Create Ansible hosts directory
-          ansible.builtin.file:
-            path: "/etc/ansible"
-            state: directory
-
-        - name: Fill Ansible hosts file
-          ansible.builtin.lineinfile:
-            path: "/etc/ansible/hosts"
-            line: "{{ item }}"
-            insertafter: EOF
             create: yes
+            owner: root
+            group: root
+            mode: 0640
             state: present
-          loop:
-            - "[local]"
-            - "localhost ansible_connection=local"
+
+#    - name: Create Ansible hosts file
+#      block:
+#        - name: Create Ansible hosts directory
+#          ansible.builtin.file:
+#            path: "/etc/ansible"
+#            state: directory
+#
+#        - name: Fill Ansible hosts file
+#          ansible.builtin.lineinfile:
+#            path: "/etc/ansible/hosts"
+#            line: "{{ item }}"
+#            insertafter: EOF
+#            create: yes
+#            state: present
+#          loop:
+#            - "[local]"
+#            - "localhost ansible_connection=local"
 ...

@@ -5,8 +5,7 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: "${WRKFLW_DISTRIB:-debian:latest}"
-    command: /sbin/init
+    image: "${WRKFLW_DISTRIB}"
     tmpfs:
       - /run
       - /tmp
