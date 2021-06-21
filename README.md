@@ -1,5 +1,6 @@
 # Ansible Role: `locales`
 
+[![Molecule](https://github.com/Frzk/ansible-role-locales/actions/workflows/molecule.yml/badge.svg?branch=main)](https://github.com/Frzk/ansible-role-locales/actions/workflows/molecule.yml)
 [![Code Linter](https://github.com/Frzk/ansible-role-locales/actions/workflows/linter.yml/badge.svg?branch=main)](https://github.com/Frzk/ansible-role-locales/actions/workflows/linter.yml)
 [![Ansible Role](https://img.shields.io/ansible/role/d/55359?color=2997FF&label=Ansible%20Galaxy%20downloads&logo=ansible)](https://galaxy.ansible.com/Frzk/locales)
 
