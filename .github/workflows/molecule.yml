@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - master
-      - getting-rid-of-docker
   schedule:
     - cron: "15 4 * * 1"
 
@@ -23,6 +22,7 @@ jobs:
       matrix:
         docker_image:
           - "archlinux"
+          # - debian-11
           # - debian-10
           # - debian-9
           # - ubuntu-18.04
