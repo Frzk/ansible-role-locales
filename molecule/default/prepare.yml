@@ -50,22 +50,4 @@
             group: root
             mode: 0640
             state: present
-
-#    - name: Create Ansible hosts file
-#      block:
-#        - name: Create Ansible hosts directory
-#          ansible.builtin.file:
-#            path: "/etc/ansible"
-#            state: directory
-#
-#        - name: Fill Ansible hosts file
-#          ansible.builtin.lineinfile:
-#            path: "/etc/ansible/hosts"
-#            line: "{{ item }}"
-#            insertafter: EOF
-#            create: yes
-#            state: present
-#          loop:
-#            - "[local]"
-#            - "localhost ansible_connection=local"
 ...
