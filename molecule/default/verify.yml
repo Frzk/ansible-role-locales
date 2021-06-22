@@ -1,0 +1,56 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Include OS specific configuration
+      ansible.builtin.include_vars: "{{ lookup('first_found', findme }}"
+      vars:
+        findme:
+          paths:
+            - "../../vars"
+          files:
+            - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+            - "{{ ansible_distribution }}.yml"
+            - "{{ ansible_os_family }}.yml"
+          skip: yes
+
+    - name: Test package
+      block:
+        - name: Populate packages facts
+          ansible.builtin.package_facts:
+          tags:
+            - "tdd"
+
+        - name: Test package state
+          ansible.builtin.assert:
+            that: "'{{ locales_package_name }}' in ansible_facts.packages"
+          tags:
+            - "tdd"
+      when: (locales_package_name is defined) and (locale_package_name | length > 0)
+
+    - name: Retrieve locale.gen configuration file state
+      ansible.builtin.stat:
+        path: "/etc/locale.gen"
+      register: locale_gen_file
+      tags:
+        - "tdd"
+
+    - name: Test locale.gen configuration file state
+      ansible.builtin.assert:
+        that:
+          - "locale_gen_file.stat.exists"
+          - "locale_gen_file.stat.isfile"
+          - "locale_gen_file.stat.mode == 0644"
+          - "locale_gen_file.stat.pw_name == 'root'"
+          - "locale_gen_file.stat.gr_name == 'root'"
+      tags:
+        - "tdd"
+
+    - name: Test `LANG` environment variable
+      ansible.builtin.assert:
+        that:
+          - "lookup('env', 'LANG') is defined"
+          - "lookup('env', 'LANG') == 'en_US.UTF-8'"
+      tags:
+        - "tdd"
+...
