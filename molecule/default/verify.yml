@@ -48,8 +48,8 @@
     - name: Test `LANG` environment variable
       ansible.builtin.assert:
         that:
-          - "lookup('env', 'LANG') is defined"
-          - "lookup('env', 'LANG') == 'en_US.UTF-8'"
+          - "ansible_env.LANG is defined"
+          - "ansible_env.LANG == 'en_US.UTF-8'"
       tags:
         - "tdd"
 ...
