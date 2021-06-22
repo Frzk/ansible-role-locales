@@ -39,7 +39,7 @@
       ansible.builtin.assert:
         that:
           - "locale_gen_file.stat.exists"
-          - "locale_gen_file.stat.mode == 0644"
+          - "locale_gen_file.stat.mode == '0644'"
           - "locale_gen_file.stat.pw_name == 'root'"
           - "locale_gen_file.stat.gr_name == 'root'"
       tags:
