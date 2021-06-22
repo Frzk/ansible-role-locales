@@ -14,6 +14,9 @@
             - "{{ ansible_os_family }}.yml"
           skip: yes
 
+    - name: Gather facts
+      ansible.builtin.gather_facts:
+
     - name: Test package
       block:
         - name: Populate packages facts
