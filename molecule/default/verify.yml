@@ -26,7 +26,7 @@
             that: "'{{ locales_package_name }}' in ansible_facts.packages"
           tags:
             - "tdd"
-      when: (locales_package_name is defined) and (locale_package_name | length > 0)
+      when: (locales_package_name is defined) and (locales_package_name | length > 0)
 
     - name: Retrieve locale.gen configuration file state
       ansible.builtin.stat:
