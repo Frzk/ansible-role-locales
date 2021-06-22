@@ -14,8 +14,8 @@
             - "{{ ansible_os_family }}.yml"
           skip: yes
 
-    - name: Force user reconnection so environment is reloaded
-      ansible.builtin.meta: reset_connection
+    - name: Force loading of the locales environment variables
+      ansible.builtin.shell: ". {{ locales_configuration_file | quote }}"
 
     - name: Gather facts
       ansible.builtin.gather_facts:
