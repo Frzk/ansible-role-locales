@@ -48,6 +48,9 @@
       tags:
         - "tdd"
 
+    - debug:
+        var: ansible_env
+
     - name: Test `LANG` environment variable
       ansible.builtin.assert:
         that:
