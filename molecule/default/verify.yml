@@ -14,21 +14,6 @@
             - "{{ ansible_os_family }}.yml"
           skip: yes
 
-    # This step is a bit special.
-    # The default locale configuration file is loaded when the system starts
-    # or when a user logs in.
-    # We could use Ansible `ansible.builtin.meta: reset_connection` to force
-    # a new login to happen but since the tests are run locally, this won't
-    # work.
-    # As a result, we have to `export` the LANG env var, to make sure it exists
-    # and then manually load the content of the default locale configuration
-    # file.
-    - name: Force loading of the locales environment variables
-      ansible.builtin.shell: "export LANG='' && . {{ locales_configuration_file | quote }}"
-
-    - name: Gather facts
-      ansible.builtin.gather_facts:
-
     - name: Test package
       block:
         - name: Populate packages facts
@@ -60,14 +45,48 @@
       tags:
         - "tdd"
 
-    - debug:
-        var: ansible_env
+    - name: Retrieve locale.conf configuration file state
+      ansible.builtin.stat:
+        path: "{{ locales_configuration_file }}"
+      register: locale_conf_file
+      tags:
+        - "tdd"
+
+    - name: Test locale.conf configuration file state
+      ansible.builtin.assert:
+        that:
+          - "locale_conf_file.stat.exists"
+          - "locale_conf_file.stat.mode == '0644'"
+          - "locale_conf_file.stat.pw_name == 'root'"
+          - "locale_conf_file.stat.gr_name == 'root'"
+      tags:
+        - "tdd"
+
+    # This step is a bit special.
+    # The default locale configuration file is loaded when the system starts
+    # or when a user logs in.
+    # We could use Ansible `ansible.builtin.meta: reset_connection` to force
+    # a new login to happen but since the tests are run locally, this won't
+    # work.
+    #
+    # As a result, we have to somehow mock that relogin process by:
+    # 1. `exporting` the LANG env var, to make sure it exists
+    # 2. manually loading the content of the default locale configuration file.
+    #
+    # Moreover, the `LANG` env var, if loaded, will only be available during
+    # this task (during the lifespan of the shell created by Ansible to run
+    # the commands. So we have to register its value for later use.
+    #
+    - name: Force loading of the locales environment variables
+      ansible.builtin.shell: "export LANG='' && . {{ locales_configuration_file | quote }} && echo $LANG"
+      register: echo_lang
+      tags:
+        - "tdd"
 
     - name: Test `LANG` environment variable
       ansible.builtin.assert:
         that:
-          - "ansible_env.LANG is defined"
-          - "ansible_env.LANG == 'en_US.UTF-8'"
+          - "echo_lang.stdout == 'en_US.UTF-8'"
       tags:
         - "tdd"
 ...
