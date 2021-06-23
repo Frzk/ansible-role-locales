@@ -14,8 +14,17 @@
             - "{{ ansible_os_family }}.yml"
           skip: yes
 
+    # This step is a bit special.
+    # The default locale configuration file is loaded when the system starts
+    # or when a user logs in.
+    # We could use Ansible `ansible.builtin.meta: reset_connection` to force
+    # a new login to happen but since the tests are run locally, this won't
+    # work.
+    # As a result, we have to `export` the LANG env var, to make sure it exists
+    # and then manually load the content of the default locale configuration
+    # file.
     - name: Force loading of the locales environment variables
-      ansible.builtin.shell: ". {{ locales_configuration_file | quote }}"
+      ansible.builtin.shell: "export LANG='' && . {{ locales_configuration_file | quote }}"
 
     - name: Gather facts
       ansible.builtin.gather_facts:
