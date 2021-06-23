@@ -14,8 +14,8 @@ galaxy_info:
         - all
     - name: Debian
       versions:
-        - bullseye (11)
-        - buster (10)
+        - bullseye
+        - buster
   galaxy_tags:
     - system
     - locales
