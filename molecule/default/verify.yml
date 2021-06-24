@@ -2,6 +2,9 @@
 - name: Verify
   hosts: all
   tasks:
+    - name: Include defaults
+      ansible.builtin.include_vars: "../../defaults/main.yml"
+
     - name: Include OS specific configuration
       ansible.builtin.include_vars: "{{ lookup('first_found', findme) }}"
       vars:
