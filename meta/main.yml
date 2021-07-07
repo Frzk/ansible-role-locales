@@ -18,8 +18,8 @@ galaxy_info:
         - buster
     - name: Ubuntu
       versions:
-        - bionic
         - focal
+        - bionic
   galaxy_tags:
     - system
     - locales
