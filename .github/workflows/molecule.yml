@@ -38,6 +38,7 @@ jobs:
         with:
           fetch-depth: 0
           path: 'frzk.locales'
+          ref: ${{ github.event.workflow_run.head_branch }}
 
       - name: 🐍 Set up Python
         uses: actions/setup-python@v2
