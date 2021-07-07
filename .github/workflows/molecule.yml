@@ -2,6 +2,8 @@
 name: Molecule
 
 on:
+  schedule:
+    - cron: "35 4 * * SUN"
   workflow_dispatch:
   workflow_run:
     workflows:
@@ -28,6 +30,7 @@ jobs:
           - "debian-11"
           - "debian-10"
           # - "debian-9"
+          - "ubuntu-20.04"
           # - "ubuntu-18.04"
           # - "ubuntu-16.04"
     steps:
@@ -36,6 +39,7 @@ jobs:
         with:
           fetch-depth: 0
           path: 'frzk.locales'
+          ref: ${{ github.event.workflow_run.head_branch }}
 
       - name: 🐍 Set up Python
         uses: actions/setup-python@v2
