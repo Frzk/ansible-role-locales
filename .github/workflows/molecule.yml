@@ -2,14 +2,17 @@
 name: Molecule
 
 on:
-  workflow_dispatch:
-  pull_request:
-  push:
-    branches:
-      - main
-      - testing
   schedule:
-    - cron: "15 4 * * 1"
+    - cron: "35 4 * * SUN"
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - "Code Linter"
+    branches:
+      - "main"
+      - "testing"
+    types:
+      - completed
 
 defaults:
   run:
