@@ -15,6 +15,16 @@ Some distributions (such as Arch Linux) don't need any additional package. In th
 
 Also, please note that we are completely replacing the content of the `/etc/locale.gen` file, so **you have to triple-check the values you provide**.
 
+## Requirements
+
+None
+
+
+## Dependencies
+
+None
+
+
 ## Role variables
 
 Variables and properties in bold are mandatory. Others are optional.
@@ -61,24 +71,39 @@ Variables and properties in bold are mandatory. Others are optional.
 | `time`           | Value to use as the `LC_TIME` environment variable.           | `locales_lang` |
 
 
-## Example
-
-Here is a small example of what your file should look like.
+## Playbook example
 
 **IMPORTANT**: DO NOT use this example as it is.
 
 ```yaml
 ---
-locales_locales:
-  - locale: en_US.UTF-8
-    charset: UTF-8
-  - locale: fr_BE.UTF-8
-    charset: UTF-8
+- hosts: all
+  become: true
+  roles:
+    - role: frzk.locales
+      locales_locales:
+        - locale: en_US.UTF-8
+          charset: UTF-8
+        - locale: fr_BE.UTF-8
+          charset: UTF-8
 
-locales_lc:
-  collate: "fr_FR.UTF-8"
+      locales_lc:
+        collate: "fr_FR.UTF-8"
 ...
 ```
+
+## Testing
+
+Testing is done by leveraging Molecule and Ansible (see [verify.yml](molecule/default/verify.yml)), through GitHub Actions and Docker containers.
+
+Tests successfully pass under the following distributions:
+
+- Arch Linux
+- Debian 11
+- Debian 10
+- Debian 9
+- Ubuntu 20.04
+- Ubuntu 18.04
 
 
 ## Contributing
